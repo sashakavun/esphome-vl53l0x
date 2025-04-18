@@ -1,0 +1,67 @@
+substitutions:
+  # Name of the device. Don't use underscores!
+  # https://esphome.io/guides/faq.html#why-shouldn-t-i-use-underscores-in-my-device-name
+  device_name: vl53l0x-distance-sensor
+  # Wi-Fi settings
+  # Actual credentials should be stored in secrets.yaml
+  wifi_ssid: !secret wifi_ssid
+  wifi_password: !secret wifi_password
+  # I2C pins
+  i2c_sda: GPIO3
+  i2c_scl: GPIO4
+  # Sensor update interval
+  sensor_update_interval: 100ms
+
+#
+# VL53L0X I2C Time of Flight sensor
+# ESPHome configuration for ESP32 C3 Super Mini
+#
+
+esphome:
+  name: $device_name
+
+esp32:
+  # ESP32-C3 SuperMini
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino
+
+#
+# Logging (DEBUG is the standard level)
+#
+logger:
+  level: INFO
+
+#
+# Enable Home Assistant API
+#
+api:
+
+#
+# WiFi settings
+# Actual credentials should be stored in secrets.yaml
+#
+wifi:
+  ssid: $wifi_ssid
+  password: $wifi_password
+  fast_connect: true
+
+#
+# The VL53L0X is i2c
+#
+i2c:
+  scan: true
+  sda: $i2c_sda
+  scl: $i2c_scl
+
+#
+# The actual sensor
+#
+sensor:
+  - name: "Distance"
+    id: distance
+    platform: vl53l0x
+    address: 0x29
+    update_interval: $sensor_update_interval
+    long_range: true
+    unit_of_measurement: m
