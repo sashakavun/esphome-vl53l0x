@@ -2,6 +2,8 @@ substitutions:
   # Name of the device. Don't use underscores!
   # https://esphome.io/guides/faq.html#why-shouldn-t-i-use-underscores-in-my-device-name
   device_name: vl53l0x-distance-sensor
+  # Sensor update interval
+  sensor_update_interval: 100ms
   # Wi-Fi settings
   # Actual credentials should be stored in secrets.yaml
   wifi_ssid: !secret wifi_ssid
@@ -9,12 +11,10 @@ substitutions:
   # I2C pins
   i2c_sda: GPIO3
   i2c_scl: GPIO4
-  # Sensor update interval
-  sensor_update_interval: 100ms
 
 #
 # VL53L0X I2C Time of Flight sensor
-# ESPHome configuration for ESP32 C3 Super Mini
+# ESPHome configuration for ESP32-C3 SuperMini
 #
 
 esphome:
